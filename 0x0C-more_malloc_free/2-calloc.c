@@ -1,66 +1,43 @@
-#include "main.h"
 #include <stdlib.h>
+#include "main.h"
 
 /**
- *_realloc - function reallocates a memory block using malloc and free
- *@ptr: pointer to the memory previously allocated
- *@old_size: size in bytes
- *@new_size: size in bytes
- *Return: pointer
+ * _calloc - function that allocates memory for an array, using malloc
+ * @nmemb: input size 1
+ * @size: input size bytes
+ * Return: nothing
  */
 
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	void *reaptr;
+	void *cal;
 
-	if (ptr == NULL)
-	{
-		reaptr = malloc(new_size);
-		if (reaptr == NULL)
-		{
-			free(ptr);
-			return (NULL);
-		}
-		free(ptr);
-		return (reaptr);
-	}
-	if (new_size == old_size)
-		return (ptr);
-	if (new_size == 0 && ptr != NULL)
-	{
-		free(ptr);
+	if (nmemb == 0 || size == 0)
 		return (NULL);
-	}
-	reaptr = malloc(new_size);
-	if (reaptr == NULL)
-	{
-		free(ptr);
+	cal = malloc(nmemb * size);
+	if (cal == NULL)
 		return (NULL);
-	}
-	if (new_size > old_size)
-		_memcpy(reaptr, ptr, old_size);
-	free(ptr);
-	return (reaptr);
+	_memset(cal, 0, nmemb * size);
+	return (cal);
 }
-
 /**
- * _memcpy - function that copies memory area
- * @dest: dest positions
- * @src: source position
+ * _memset - function that fills memory with a constant byte.
+ *
+ * @s: mamory area to return
+ * @b: constant byte
  * @n: size of bytes
  * Return: char
  */
 
-char *_memcpy(char *dest, char *src, unsigned int n)
+char *_memset(char *s, char b, unsigned int n)
 {
 	unsigned int i = 0;
-	unsigned int j = 0;
 
 	while (i < n)
 	{
-		*(dest + i) = *(src + j);
+
+		*(s + i) = b;
 		i += 1;
-		j += 1;
 	}
-	return (dest);
+	return (s);
 }
